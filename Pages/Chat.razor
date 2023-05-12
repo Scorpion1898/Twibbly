@@ -1,0 +1,56 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.SignalR.Client
+@using WSDT.EmojiFilePicker
+
+<br />
+<p>Connected Users :@TotalOnlineUsers</p>
+@if (isConnected)
+{
+
+    <div class="d-flex flex-grow-1 flex-row">
+        <MudPaper Elevation="25" Class="py-4 flex-grow-1">
+            <MudToolBar Dense="true">
+                <MudButton ButtonType="ButtonType.Button" Variant="Variant.Outlined" Color="Color.Error" OnClick="EndChat">End Chat</MudButton>
+            </MudToolBar>
+            <div class="d-flex flex-column px-4" style="max-height:65vh;min-height:65vh; overflow:scroll;" id="chatContainer">
+                @foreach (var message in messageHistory)
+                {
+                    if (message.Contains("Stranger"))
+                    {
+                        <div class="d-flex flex-row my-4" style="justify-content: flex-end;">
+                            <div>
+                                <MudText Typo="Typo.body1" Style="padding: 15px;background-color: #c6fdd0;border-radius: 18px;margin-top:5px">@message</MudText>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="d-flex flex-row my-4">
+                            <div>
+                                <MudText Typo="Typo.body2" Style=" padding: 15px;background-color: #bafdff;border-radius: 18px;margin-top:5px">@message</MudText>
+                            </div>
+                        </div>
+                    }
+                   
+                }
+            </div>
+            <MudPaper Elevation="10" Class="d-flex flex-row px-2 mx-4" Style="">
+                <MudTextField @ref=MudTextField T="string" Placeholder="Enter your message..."
+                          DisableUnderLine="true"  @bind-Value="message" For="@(()=> message)" @onkeyup="(e)=>KeyPressEvent(e)" />
+
+            
+
+                <MudButton OnClick="SendMessage" StartIcon="@Icons.Material.Outlined.Send" Color="Color.Secondary" ButtonType="ButtonType.Button">Send</MudButton>
+            </MudPaper>
+        </MudPaper>
+    </div>
+}
+else if (isConnecting)
+{
+    <p>Hold tight, we're finding your next chat buddy!..</p>
+}
+else
+{
+    <MudButton ButtonType="ButtonType.Button" Variant="Variant.Outlined" Color="Color.Surface" OnClick="StartChat">Start Chat</MudButton>
+}
+

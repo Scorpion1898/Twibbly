@@ -1,0 +1,27 @@
+﻿
+<style>
+    .mud-paper mud-elevation-0 py-3 {
+        width:200px;
+    }
+</style>
+<MudPaper Width="250px" Class="py-3" Elevation="0">
+    <MudNavMenu>
+        <div class="image-left image-load" style="margin-left: 28%">
+            <MudImage Src="images/logo/logo-no-background.png" Alt="Twibbly" Elevation="0" Class="rounded-lg" style="height: 100px" />
+        </div>
+        <MudDivider Class="my-2" />
+
+        <MudNavLink Icon="@Icons.Filled.Chat" Href="/">Chat</MudNavLink>
+    </MudNavMenu>
+</MudPaper>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

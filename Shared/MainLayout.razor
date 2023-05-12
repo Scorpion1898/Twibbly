@@ -1,0 +1,25 @@
+﻿@using MudBlazor
+@inherits LayoutComponentBase
+
+<PageTitle>Twibbly</PageTitle>
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar Style="background-color:#582340">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => MenuToggle())" />
+        <MudSpacer />
+        
+    </MudAppBar>
+    <MudDrawer @bind-Open="@_menuOpen">
+        <NavMenu />
+    </MudDrawer>
+    <MudMainContent>
+        <MudContainer>
+            @Body
+
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+
